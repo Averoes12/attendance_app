@@ -7,15 +7,10 @@ import 'package:flutter/material.dart';
 
 import '../constant/constant.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   final username;
   const HomeScreen({Key? key, required this.username}): super(key: key);
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -30,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Hi, ${widget.username}!", style: const TextStyle(fontSize: textLarge, color: Colors.white, fontWeight: FontWeight.bold),),
+                      Text("Hi, $username!", style: const TextStyle(fontSize: textLarge, color: Colors.white, fontWeight: FontWeight.bold),),
                       const Text("Mobile Application Developer", style: TextStyle(color: Colors.white, fontSize: textMedium),)
                     ],
                   ),
@@ -61,9 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 16,),
                 LayoutBuilder(builder: (context, constraint) {
                   if(constraint.maxWidth < 600){
-                    return phoneMenu();
+                    return phoneMenu(context);
                   }else {
-                    return tabMenu();
+                    return tabMenu(context);
                   }
                 }),
                 const SizedBox(height: 16,),
@@ -155,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget phoneMenu(){
+  Widget phoneMenu(context){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget tabMenu(){
+  Widget tabMenu(context){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,

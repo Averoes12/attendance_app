@@ -1,15 +1,10 @@
 import 'package:attendance_app/constant/constant.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   final username;
   const ProfileScreen({Key? key, required this.username}): super(key: key);
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 18,),
-              Text(widget.username, style: const TextStyle(fontSize: textLarge, color: colorTextPrimary, fontWeight: FontWeight.bold),),
+              Text(username, style: const TextStyle(fontSize: textLarge, color: colorTextPrimary, fontWeight: FontWeight.bold),),
               const Text("Mobile Application Developer", style: TextStyle(color: colorTextPrimary, fontSize: textMedium),),
               const SizedBox(height: 32,),
               const Row(

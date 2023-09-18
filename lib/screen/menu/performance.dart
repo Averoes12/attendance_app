@@ -3,14 +3,9 @@ import 'package:attendance_app/constant/constant.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class PerformanceScreen extends StatefulWidget {
+class PerformanceScreen extends StatelessWidget {
   const PerformanceScreen({super.key});
 
-  @override
-  State<PerformanceScreen> createState() => _PerformanceScreenState();
-}
-
-class _PerformanceScreenState extends State<PerformanceScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
