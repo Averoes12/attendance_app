@@ -21,48 +21,50 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: Container(
           padding: EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  "Welcome !",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    "Welcome !",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 32,
-              ),
-              RoundedTextField(controller: username, hint: "Username",),
-              SizedBox(
-                height: 8,
-              ),
-              RoundedTextField(controller: password, hint: "Password", isPassword: true),
-              SizedBox(
-                height: 16,
-              ),
-              Container(
-                alignment: Alignment.bottomRight,
-                  child: RoundedButton(
-                    width: 150.0,
-                    height: 50.0,
-                    text: "Login",
-                    radius: 30.0,
-                    icon: Icon(Icons.arrow_forward_ios, size: textButton, color: Colors.white,),
-                    onTap: (){
-                      if(username.text != "" && password.text != ""){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen(username: username.text,)));
-                      }else {
-                        showToast(context, "Please fill out the blank field");
-                      }
-                    },
-              ))
-            ],
+                SizedBox(
+                  height: 32,
+                ),
+                RoundedTextField(controller: username, hint: "Username",),
+                SizedBox(
+                  height: 8,
+                ),
+                RoundedTextField(controller: password, hint: "Password", isPassword: true),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  alignment: Alignment.bottomRight,
+                    child: RoundedButton(
+                      width: 150.0,
+                      height: 50.0,
+                      text: "Login",
+                      radius: 30.0,
+                      icon: Icon(Icons.arrow_forward_ios, size: textButton, color: Colors.white,),
+                      onTap: (){
+                        if(username.text != "" && password.text != ""){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen(username: username.text,)));
+                        }else {
+                          showToast(context, "Please fill out the blank field");
+                        }
+                      },
+                ))
+              ],
+            ),
           ),
         ),
       ),

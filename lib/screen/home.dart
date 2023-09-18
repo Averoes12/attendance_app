@@ -18,36 +18,36 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          color: colorDarkPrimary,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Hi, ${widget.username}!", style: const TextStyle(fontSize: textLarge, color: Colors.white, fontWeight: FontWeight.bold),),
-                    const Text("Mobile Application Developer", style: TextStyle(color: Colors.white, fontSize: textMedium),)
-                  ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            color: colorDarkPrimary,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Hi, ${widget.username}!", style: const TextStyle(fontSize: textLarge, color: Colors.white, fontWeight: FontWeight.bold),),
+                      const Text("Mobile Application Developer", style: TextStyle(color: Colors.white, fontSize: textMedium),)
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 70,
-                width: 70,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image.asset("assets/profile.jpg"),
-                ),
-              )
-            ],
+                SizedBox(
+                  height: 70,
+                  width: 70,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset("assets/profile.jpg"),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: 16,),
-        SingleChildScrollView(
-          child: Container(
+          const SizedBox(height: 16,),
+          Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -59,82 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 const Text("Menu", style: TextStyle(color: colorTextPrimary, fontSize: textSemiLarge, fontWeight: FontWeight.bold),),
                 const SizedBox(height: 16,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context, 
-                          MaterialPageRoute(builder: (context) => const AttendanceHistoryScreen())
-                        );
-                      },
-                      child: SizedBox(
-                        width: 85,
-                        height: 85,
-                        child: Column(
-                          children: [
-                            Image.asset("assets/clock.jpg", height: 40, width: 40,),
-                            const MarqueeWidget(
-                              child: Text("Attendance History"),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const LeaveRequestScreen())
-                        );
-                      },
-                      child: SizedBox(
-                        width: 85,
-                        child: Column(
-                          children: [
-                            Image.asset("assets/leave.jpg", height: 40, width: 40,),
-                            const MarqueeWidget(
-                              child: Text("Leave Request"),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const PerformanceScreen()));
-                      },
-                      child: SizedBox(
-                        width: 85,
-                        child: Column(
-                          children: [
-                            Image.asset("assets/performance.jpg", height: 40, width: 40,),
-                            const MarqueeWidget(
-                              child: Text("Performance"),
-                            )
-                          ],
-                        ),
-
-                      ),
-                    ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const PaySlipScreen()));
-                      },
-                      child: SizedBox(
-                        width: 85,
-                        child: Column(
-                          children: [
-                            Image.asset("assets/payslip.jpg", height: 40, width: 40,),
-                            const MarqueeWidget(
-                              child: Text("Payslip"),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                LayoutBuilder(builder: (context, constraint) {
+                  if(constraint.maxWidth < 600){
+                    return phoneMenu();
+                  }else {
+                    return tabMenu();
+                  }
+                }),
                 const SizedBox(height: 16,),
                 const Text("Today", style: TextStyle(color: colorTextPrimary, fontSize: textSemiLarge, fontWeight: FontWeight.bold),),
                 const SizedBox(height: 16,),
@@ -218,8 +149,165 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget phoneMenu(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AttendanceHistoryScreen())
+            );
+          },
+          child: SizedBox(
+            width: 85,
+            height: 85,
+            child: Column(
+              children: [
+                Image.asset("assets/clock.jpg", height: 40, width: 40,),
+                const MarqueeWidget(
+                  child: Text("Attendance History"),
+                )
+              ],
+            ),
           ),
-        )
+        ),
+        InkWell(
+          onTap: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LeaveRequestScreen())
+            );
+          },
+          child: SizedBox(
+            width: 85,
+            child: Column(
+              children: [
+                Image.asset("assets/leave.jpg", height: 40, width: 40,),
+                const MarqueeWidget(
+                  child: Text("Leave Request"),
+                )
+              ],
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PerformanceScreen()));
+          },
+          child: SizedBox(
+            width: 85,
+            child: Column(
+              children: [
+                Image.asset("assets/performance.jpg", height: 40, width: 40,),
+                const MarqueeWidget(
+                  child: Text("Performance"),
+                )
+              ],
+            ),
+
+          ),
+        ),
+        InkWell(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PaySlipScreen()));
+          },
+          child: SizedBox(
+            width: 85,
+            child: Column(
+              children: [
+                Image.asset("assets/payslip.jpg", height: 40, width: 40,),
+                const MarqueeWidget(
+                  child: Text("Payslip"),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget tabMenu(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AttendanceHistoryScreen())
+            );
+          },
+          child: SizedBox(
+            width: 150,
+            child: Column(
+              children: [
+                Image.asset("assets/clock.jpg", height: 40, width: 40,),
+                const MarqueeWidget(
+                  child: Text("Attendance History"),
+                )
+              ],
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LeaveRequestScreen())
+            );
+          },
+          child: SizedBox(
+            width: 150,
+            child: Column(
+              children: [
+                Image.asset("assets/leave.jpg", height: 40, width: 40,),
+                const MarqueeWidget(
+                  child: Text("Leave Request"),
+                )
+              ],
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PerformanceScreen()));
+          },
+          child: SizedBox(
+            width: 150,
+            child: Column(
+              children: [
+                Image.asset("assets/performance.jpg", height: 40, width: 40,),
+                const MarqueeWidget(
+                  child: Text("Performance"),
+                )
+              ],
+            ),
+
+          ),
+        ),
+        InkWell(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PaySlipScreen()));
+          },
+          child: SizedBox(
+            width: 150,
+            child: Column(
+              children: [
+                Image.asset("assets/payslip.jpg", height: 40, width: 40,),
+                const MarqueeWidget(
+                  child: Text("Payslip"),
+                )
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
